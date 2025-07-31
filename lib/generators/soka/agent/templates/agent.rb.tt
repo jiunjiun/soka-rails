@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+class <%= @agent_class_name %> < ApplicationAgent
+  # Tool registration
+<% if @tools_list.any? -%>
+<% @tools_list.each do |tool| -%>
+  tool <%= tool.camelize %>Tool
+<% end -%>
+<% else -%>
+  # tool YourTool
+<% end -%>
+
+  # Configuration
+  # max_iterations 10
+  # timeout 30
+
+  # Hooks
+  # before_action :your_method
+  # after_action :your_method
+  # on_error :your_method
+
+  private
+
+  # Implement your private methods here
+end

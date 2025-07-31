@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+class <%= @tool_class_name %> < ApplicationTool
+  desc 'Description of your tool'
+
+  params do
+<% if @params_list.any? -%>
+<% @params_list.each do |param| -%>
+    requires :<%= param[:name] %>, <%= param[:type] %>, desc: '<%= param[:name].humanize %>'
+<% end -%>
+<% else -%>
+    # requires :param_name, String, desc: 'Parameter description'
+    # optional :param_name, String, desc: 'Parameter description'
+<% end -%>
+  end
+
+  def call(<%= @params_list.map { |param| param[:name] }.join(', ') %>)
+    # Implement your tool logic here
+
+    # Return a hash with your results
+    {
+      result: 'Tool execution result',
+      processed_at: Time.current
+    }
+  end
+end

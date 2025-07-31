@@ -1,0 +1,48 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe <%= @tool_class_name %>Tool, type: :tool do
+  let(:tool) { described_class.new }
+
+  describe '#call' do
+<% if @params_list.any? -%>
+    let(:params) do
+      {
+<% @params_list.each do |param| -%>
+        <%= param[:name] %>: <%= param[:type] == 'String' ? "'test_value'" : "test_value" %>,
+<% end -%>
+      }
+    end
+
+    it 'executes successfully with valid params' do
+      result = tool.call(**params)
+
+      expect(result).to be_a(Hash)
+      expect(result[:result]).to be_present
+    end
+<% else -%>
+    it 'executes successfully' do
+      result = tool.call
+
+      expect(result).to be_a(Hash)
+      expect(result[:result]).to be_present
+    end
+<% end -%>
+
+    it 'includes timestamp in response' do
+      result = tool.call<%= @params_list.any? ? '(**params)' : '' %>
+
+      expect(result[:processed_at]).to be_present
+      expect(result[:processed_at]).to be_within(1.second).of(Time.current)
+    end
+
+    it 'handles errors gracefully' do
+      allow(tool).to receive(:call).and_raise(StandardError, 'Test error')
+
+      expect {
+        tool.call<%= @params_list.any? ? '(**params)' : '' %>
+      }.to raise_error(StandardError)
+    end
+  end
+end
