@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.1] - 2025-08-01
+
+### Added
+- Extract version-specific changelog for GitHub releases
+
+### Changed
+- Release workflow now parses CHANGELOG.md to extract entries for specific versions
+- GitHub releases use extracted content as release notes instead of auto-generated notes
+
 ## [0.0.1.beta4] - 2025-08-01
 
 ### Fixed
