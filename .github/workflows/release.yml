@@ -79,6 +79,12 @@ jobs:
           echo "No changelog entry found for this version." > release_notes.md
         fi
 
+        # Add link to full changelog
+        echo "" >> release_notes.md
+        echo "---" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "📝 **[View Full Changelog](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)**" >> release_notes.md
+
         echo "Release notes:"
         cat release_notes.md
 
