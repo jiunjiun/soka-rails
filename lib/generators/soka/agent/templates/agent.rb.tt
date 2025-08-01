@@ -19,7 +19,7 @@ class <%= @agent_class_name %> < ApplicationAgent
   # after_action :your_method
   # on_error :your_method
 
-  private
+  # private
 
   # Implement your private methods here
 end
