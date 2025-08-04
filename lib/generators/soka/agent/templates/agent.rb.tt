@@ -10,6 +10,12 @@ class <%= @agent_class_name %> < ApplicationAgent
   # tool YourTool
 <% end -%>
 
+  # Custom instructions (new in v0.0.3)
+  # instructions "You are a helpful assistant specialized in..."
+
+  # Multilingual thinking (new in v0.0.3)
+  # think_in 'en'  # 'en', 'zh-TW', 'ja-JP', etc.
+
   # Configuration
   # max_iterations 10
   # timeout 30

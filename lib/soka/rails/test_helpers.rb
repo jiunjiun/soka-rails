@@ -19,7 +19,6 @@ module Soka
       def build_mock_response(attrs)
         default_response = {
           final_answer: 'Mocked answer',
-          confidence_score: 0.95,
           status: :completed,
           iterations: 1,
           thought_process: []
@@ -95,7 +94,6 @@ module Soka
         default_attrs = {
           status: :completed,
           final_answer: 'Success',
-          confidence_score: 0.95,
           iterations: 1
         }
 

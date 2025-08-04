@@ -478,7 +478,6 @@ module Soka
       def mock_ai_response(response_attrs = {})
         default_response = {
           final_answer: "Mocked answer",
-          confidence_score: 0.95,
           status: :completed,
           iterations: 1,
           thought_process: []
@@ -616,7 +615,6 @@ class ConversationsController < ApplicationController
   def build_response(result)
     {
       answer: result.final_answer,
-      confidence: result.confidence_score,
       status: result.status,
       metadata: {
         iterations: result.iterations,
@@ -652,7 +650,6 @@ class ProcessConversationJob < ApplicationJob
     user.conversations.create!(
       message: message,
       response: result.final_answer,
-      confidence: result.confidence_score,
       metadata: {
         iterations: result.iterations,
         thought_process: result.thought_process

@@ -291,7 +291,6 @@ class ConversationsController < ApplicationController
     
     render json: {
       answer: result.final_answer,
-      confidence: result.confidence_score,
       status: result.status
     }
   end

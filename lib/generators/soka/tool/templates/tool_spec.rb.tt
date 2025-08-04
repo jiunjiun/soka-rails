@@ -15,14 +15,14 @@ RSpec.describe <%= @tool_class_name %>Tool, type: :tool do
       }
     end
 
-    it 'executes successfully with valid params' do
+    it 'calls successfully with valid params' do
       result = tool.call(**params)
 
       expect(result).to be_a(Hash)
       expect(result[:result]).to be_present
     end
 <% else -%>
-    it 'executes successfully' do
+    it 'calls successfully' do
       result = tool.call
 
       expect(result).to be_a(Hash)

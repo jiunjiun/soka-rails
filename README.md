@@ -26,6 +26,8 @@ Soka Rails is a Rails integration package for the Soka AI Agent Framework, provi
 - 🔄 **Rails Lifecycle Hooks**: Integrates with Rails logging and error tracking
 - 💾 **Session Memory Support**: Store conversation history in Rails sessions
 - 🔐 **Authentication Integration**: Works with Rails authentication systems
+- 🗣️ **Custom Instructions**: Customize agent personality and behavior (Soka v0.0.3+)
+- 🌐 **Multilingual Thinking**: Support for reasoning in different languages (Soka v0.0.3+)
 
 ## Installation
 
@@ -91,7 +93,7 @@ class ConversationsController < ApplicationController
 
     render json: {
       answer: result.final_answer,
-      confidence: result.confidence_score
+      status: result.status
     }
   end
 end
@@ -242,6 +244,12 @@ class WeatherAgent < ApplicationAgent
   tool ForecastTool
   tool TemperatureTool
   tool HumidityTool
+
+  # Custom instructions
+  # instructions "You are a weather expert. Always provide temperature in both Celsius and Fahrenheit."
+
+  # Multilingual thinking
+  # think_in 'en'  # Supported: 'en', 'zh-TW', 'ja-JP', etc.
 
   # Configuration
   # max_iterations 10
