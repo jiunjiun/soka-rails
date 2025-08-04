@@ -26,8 +26,9 @@ Soka Rails is a Rails integration package for the Soka AI Agent Framework, provi
 - 🔄 **Rails Lifecycle Hooks**: Integrates with Rails logging and error tracking
 - 💾 **Session Memory Support**: Store conversation history in Rails sessions
 - 🔐 **Authentication Integration**: Works with Rails authentication systems
-- 🗣️ **Custom Instructions**: Customize agent personality and behavior (Soka v0.0.3+)
-- 🌐 **Multilingual Thinking**: Support for reasoning in different languages (Soka v0.0.3+)
+- 🗣️ **Custom Instructions**: Customize agent personality and behavior
+- 🎯 **Dynamic Instructions**: Generate instructions dynamically via methods
+- 🌐 **Multilingual Thinking**: Support for reasoning in different languages
 
 ## Installation
 
@@ -132,6 +133,15 @@ class WeatherAgent < ApplicationAgent
   tool WeatherApiTool
   tool LocationTool
 
+  # Custom instructions
+  # instructions "You are a helpful weather assistant"
+
+  # Dynamic instructions via method
+  # instructions :generate_instructions
+
+  # Multilingual thinking
+  # think_in 'zh-TW'  # Think in Traditional Chinese
+
   # Rails integration hooks
   before_action :log_request
   on_error :notify_error_service
@@ -146,6 +156,15 @@ class WeatherAgent < ApplicationAgent
     Rails.error.report(error, context: context)
     :continue
   end
+
+  # Example of dynamic instructions method
+  # def generate_instructions
+  #   <<~PROMPT
+  #     You are a weather assistant for #{Rails.env} environment.
+  #     Current time: #{Time.zone.now}
+  #     User location: #{request&.location&.city || 'Unknown'}
+  #   PROMPT
+  # end
 end
 ```
 
@@ -192,6 +211,59 @@ class ConversationsController < ApplicationController
     session[:conversation_memory] = agent.memory.to_a
 
     render json: { answer: result.final_answer }
+  end
+end
+```
+
+### Custom Instructions and Dynamic Instructions
+
+```ruby
+class CustomerSupportAgent < ApplicationAgent
+  # Static instructions
+  instructions <<~PROMPT
+    You are a friendly customer support agent.
+    Always be polite and helpful.
+    Use emojis when appropriate.
+  PROMPT
+
+  # OR Dynamic instructions via method
+  instructions :generate_context_aware_instructions
+
+  private
+
+  def generate_context_aware_instructions
+    business_hours = (9..17).include?(Time.zone.now.hour)
+
+    <<~PROMPT
+      You are a customer support agent for #{Rails.application.class.module_parent_name}.
+      Environment: #{Rails.env}
+      Current time: #{Time.zone.now.strftime('%Y-%m-%d %H:%M:%S %Z')}
+      Business hours: #{business_hours ? 'Yes' : 'No (after hours)'}
+      #{business_hours ? 'Provide immediate assistance.' : 'Inform about callback options.'}
+    PROMPT
+  end
+end
+```
+
+### Multilingual Thinking
+
+```ruby
+class GlobalSupportAgent < ApplicationAgent
+  # Set default thinking language
+  think_in 'zh-TW'  # Think in Traditional Chinese
+
+  # Or set dynamically at runtime
+  def initialize(options = {})
+    super
+    # Detect user's preferred language from session or request
+    self.think_in = detect_user_language
+  end
+
+  private
+
+  def detect_user_language
+    # Logic to detect language from session, user preferences, or request headers
+    session[:locale] || I18n.locale || 'en'
   end
 end
 ```
@@ -247,6 +319,9 @@ class WeatherAgent < ApplicationAgent
 
   # Custom instructions
   # instructions "You are a weather expert. Always provide temperature in both Celsius and Fahrenheit."
+
+  # Dynamic instructions via method
+  # instructions :generate_instructions
 
   # Multilingual thinking
   # think_in 'en'  # Supported: 'en', 'zh-TW', 'ja-JP', etc.
@@ -397,7 +472,7 @@ end
 
 - Ruby: >= 3.4
 - Rails: >= 7.0
-- Soka: >= 1.0
+- Soka: >= 0.0.4
 
 ## Contributing
 

@@ -10,10 +10,13 @@ class <%= @agent_class_name %> < ApplicationAgent
   # tool YourTool
 <% end -%>
 
-  # Custom instructions (new in v0.0.3)
+  # Custom instructions
   # instructions "You are a helpful assistant specialized in..."
 
-  # Multilingual thinking (new in v0.0.3)
+  # Dynamic instructions via method
+  # instructions :generate_instructions  # Reference a method for dynamic instructions
+
+  # Multilingual thinking
   # think_in 'en'  # 'en', 'zh-TW', 'ja-JP', etc.
 
   # Configuration
@@ -28,4 +31,13 @@ class <%= @agent_class_name %> < ApplicationAgent
   # private
 
   # Implement your private methods here
+
+  # Example of dynamic instructions method
+  # def generate_instructions
+  #   <<~PROMPT
+  #     You are a #{Rails.env} environment assistant.
+  #     Current Time: #{Time.zone.now.strftime('%Y-%m-%d %H:%M:%S')}
+  #     User: #{current_user&.name || 'Guest'}
+  #   PROMPT
+  # end
 end
