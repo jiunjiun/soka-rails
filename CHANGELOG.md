@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.5] - 2025-08-05
+
+### Added
+- Support for Ruby 3.1, 3.2, and 3.3
+
+### Changed
+- Updated CI/CD workflows to test all supported Ruby versions
+- Adjusted RuboCop target version to minimum supported version (3.1)
+- Updated gemspec minimum Ruby version requirement
+- Upgraded soka dependency to 0.0.5
+
 ## [0.0.4] - 2025-08-04
 
 ### Added
