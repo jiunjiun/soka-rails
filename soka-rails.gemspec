@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
                      'and Ruby on Rails applications, following Rails conventions for easy adoption.'
   spec.homepage = 'https://github.com/jiunjiun/soka-rails'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.4'
+  spec.required_ruby_version = '>= 3.1'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/jiunjiun/soka-rails'
@@ -33,6 +33,6 @@ Gem::Specification.new do |spec|
 
   # Runtime dependencies
   spec.add_dependency 'rails', '>= 7.0', '< 9.0'
-  spec.add_dependency 'soka', '~> 0.0.4'
+  spec.add_dependency 'soka', '~> 0.0.5'
   spec.add_dependency 'zeitwerk', '~> 2.6'
 end
