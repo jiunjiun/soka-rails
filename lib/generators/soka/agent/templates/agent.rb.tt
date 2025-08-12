@@ -21,7 +21,6 @@ class <%= @agent_class_name %> < ApplicationAgent
 
   # Configuration
   # max_iterations 10
-  # timeout 30
 
   # Hooks
   # before_action :your_method

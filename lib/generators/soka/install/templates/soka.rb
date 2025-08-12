@@ -11,7 +11,7 @@ Soka::Rails.configure do |config|
 
     # Setup OpenAI
     # ai.provider = :openai
-    # ai.model = 'gpt-4.1-mini'
+    # ai.model = 'gpt-5-mini'
     # ai.api_key = ENV.fetch('OPENAI_API_KEY', nil)
 
     # Setup Anthropic
@@ -24,8 +24,5 @@ Soka::Rails.configure do |config|
   config.performance do |perf|
     # Maximum iterations for ReAct loop
     perf.max_iterations = Rails.env.production? ? 10 : 5
-
-    # Timeout for agent execution (in seconds)
-    perf.timeout = 30
   end
 end

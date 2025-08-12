@@ -127,7 +127,6 @@ class WeatherAgent < ApplicationAgent
   provider :gemini
   model 'gemini-2.5-flash-lite'
   max_iterations 10
-  timeout 30.seconds
 
   # Register tools
   tool WeatherApiTool
@@ -328,7 +327,6 @@ class WeatherAgent < ApplicationAgent
 
   # Configuration
   # max_iterations 10
-  # timeout 30
 end
 ```
 
@@ -339,7 +337,7 @@ end
 rails generate soka:tool weather_api
 
 # With parameters - automatically generates parameter definitions
-rails generate soka:tool weather_api location:string units:string timeout:integer
+rails generate soka:tool weather_api location:string units:string
 ```
 
 Creates `app/soka/tools/weather_api_tool.rb` with parameter definitions.
@@ -353,7 +351,6 @@ class WeatherApiTool < ApplicationTool
   params do
     requires :location, String, desc: 'Location'
     requires :units, String, desc: 'Units'
-    requires :timeout, Integer, desc: 'Timeout'
   end
 
   def call(**params)
@@ -463,7 +460,6 @@ Soka::Rails.configure do |config|
 
   config.performance do |perf|
     perf.max_iterations = Rails.env.production? ? 10 : 5
-    perf.timeout = 30.seconds
   end
 end
 ```

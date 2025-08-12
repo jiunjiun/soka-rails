@@ -67,7 +67,6 @@ Soka::Rails.configure do |config|
   # Performance configuration
   config.performance do |perf|
     perf.max_iterations = Rails.env.production? ? 10 : 5
-    perf.timeout = 30.seconds
   end
 end
 ```
@@ -82,7 +81,6 @@ class ApplicationAgent < Soka::Agent
   # Default configuration for Rails environment
   if Rails.env.development?
     max_iterations 5
-    timeout 15.seconds
   end
 
   # Auto-register Rails related tools
@@ -241,7 +239,6 @@ class WeatherAgent < ApplicationAgent
   
   # Configuration
   # max_iterations 10
-  # timeout 30.seconds
   
   # Hooks
   # before_action :your_method

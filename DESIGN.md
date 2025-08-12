@@ -106,17 +106,16 @@ module Soka
   module Rails
     class Configuration
       attr_accessor :ai_provider, :ai_model, :ai_api_key
-      attr_accessor :max_iterations, :timeout
+      attr_accessor :max_iterations
 
       def initialize
         # Use ENV.fetch to set default values
         @ai_provider = ENV.fetch('SOKA_PROVIDER', :gemini).to_sym
-        @ai_model = ENV.fetch('SOKA_MODEL', 'gemini-2.0-flash-exp')
+        @ai_model = ENV.fetch('SOKA_MODEL', 'gemini-2.5-flash-lite')
         @ai_api_key = ENV.fetch('SOKA_API_KEY', nil)
 
         # Performance settings
         @max_iterations = ::Rails.env.production? ? 10 : 5
-        @timeout = 30.seconds
       end
 
       # DSL configuration methods
@@ -155,10 +154,6 @@ module Soka
         def max_iterations=(value)
           @config.max_iterations = value
         end
-
-        def timeout=(value)
-          @config.timeout = value
-        end
       end
     end
 
@@ -186,7 +181,6 @@ class ApplicationAgent < Soka::Agent
   # Rails environment default configuration
   if defined?(::Rails)
     max_iterations ::Rails.env.production? ? 10 : 5
-    timeout 30.seconds
   end
 
   # Default tools
@@ -538,7 +532,6 @@ module Soka
         Soka::Rails.configure do |config|
           config.ai_provider = :mock
           config.max_iterations = 3
-          config.timeout = 5.seconds
           yield config if block_given?
         end
 
@@ -713,8 +706,7 @@ module Soka
       def get_pool(provider)
         @mutex.synchronize do
           @pools[provider] ||= ConnectionPool.new(
-            size: pool_size,
-            timeout: pool_timeout
+            size: pool_size
           ) do
             create_connection(provider)
           end
@@ -723,10 +715,6 @@ module Soka
 
       def pool_size
         ::Rails.env.production? ? 10 : 2
-      end
-
-      def pool_timeout
-        5.seconds
       end
 
       def create_connection(provider)
@@ -764,11 +752,6 @@ module Soka
       end
     end
 
-    class AgentTimeoutError < AgentError
-      def initialize(timeout)
-        super("Agent execution timeout after #{timeout} seconds")
-      end
-    end
   end
 end
 ```
