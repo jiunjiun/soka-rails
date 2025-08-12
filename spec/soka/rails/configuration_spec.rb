@@ -7,9 +7,8 @@ RSpec.describe Soka::Rails::Configuration do
 
   describe 'default configuration' do
     it_behaves_like 'a configurable setting', :ai_provider, :gemini, :openai
-    it_behaves_like 'a configurable setting', :ai_model, 'gemini-2.0-flash-exp', 'gpt-4'
+    it_behaves_like 'a configurable setting', :ai_model, 'gemini-2.5-flash-lite', 'gpt-5-mini'
     it_behaves_like 'a configurable setting', :ai_api_key, nil, 'test-key'
-    it_behaves_like 'a configurable setting', :timeout, 30, 60
   end
 
   describe '#max_iterations' do
@@ -48,7 +47,7 @@ RSpec.describe Soka::Rails::Configuration do
     let(:env_vars) do
       {
         'SOKA_PROVIDER' => 'openai',
-        'SOKA_MODEL' => 'gpt-4',
+        'SOKA_MODEL' => 'gpt-5-mini',
         'SOKA_API_KEY' => 'env-test-key'
       }
     end
@@ -58,7 +57,7 @@ RSpec.describe Soka::Rails::Configuration do
     end
 
     it 'loads ai_model from environment' do
-      expect(described_class.new.ai_model).to eq('gpt-4')
+      expect(described_class.new.ai_model).to eq('gpt-5-mini')
     end
 
     it 'loads ai_api_key from environment' do
@@ -75,7 +74,7 @@ RSpec.describe Soka::Rails::Configuration do
     before do
       config.ai do |ai|
         ai.provider = :anthropic
-        ai.model = 'claude-3'
+        ai.model = 'claude-sonnet-4-0'
         ai.api_key = 'claude-key'
       end
     end
@@ -85,7 +84,7 @@ RSpec.describe Soka::Rails::Configuration do
     end
 
     it 'sets model through DSL' do
-      expect(config.ai_model).to eq('claude-3')
+      expect(config.ai_model).to eq('claude-sonnet-4-0')
     end
 
     it 'sets api_key through DSL' do
@@ -97,21 +96,11 @@ RSpec.describe Soka::Rails::Configuration do
     before do
       config.performance do |perf|
         perf.max_iterations = 20
-        perf.timeout = 90
       end
     end
 
     it 'sets max_iterations' do
       expect(config.max_iterations).to eq(20)
-    end
-
-    it 'sets timeout' do
-      expect(config.timeout).to eq(90)
-    end
-
-    it 'converts string timeout to integer' do
-      config.performance { |perf| perf.timeout = '45' }
-      expect(config.timeout).to eq(45)
     end
   end
 end

@@ -80,7 +80,6 @@ module Soka
         Soka::Rails.configure do |config|
           config.ai_provider = :mock
           config.max_iterations = 3
-          config.timeout = 5
           yield config if block_given?
         end
 

@@ -4,17 +4,16 @@ module Soka
   module Rails
     # Main configuration class for Soka Rails settings
     class Configuration
-      attr_accessor :ai_provider, :ai_model, :ai_api_key, :max_iterations, :timeout
+      attr_accessor :ai_provider, :ai_model, :ai_api_key, :max_iterations
 
       def initialize
         # Use ENV.fetch to set default values
         @ai_provider = ENV.fetch('SOKA_PROVIDER', :gemini).to_sym
-        @ai_model = ENV.fetch('SOKA_MODEL', 'gemini-2.0-flash-exp')
+        @ai_model = ENV.fetch('SOKA_MODEL', 'gemini-2.5-flash-lite')
         @ai_api_key = ENV.fetch('SOKA_API_KEY', nil)
 
         # Performance settings
         @max_iterations = defined?(::Rails) && ::Rails.env.production? ? 10 : 5
-        @timeout = 30
       end
 
       # DSL configuration methods
@@ -54,10 +53,6 @@ module Soka
 
         def max_iterations=(value)
           @config.max_iterations = value
-        end
-
-        def timeout=(value)
-          @config.timeout = value.is_a?(Numeric) ? value : value.to_i
         end
       end
     end

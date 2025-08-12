@@ -6,9 +6,9 @@ RSpec.describe Soka::Rails::AgentExtensions do
   let(:mock_agent_class) do
     Class.new do
       class << self
-        attr_accessor :_provider, :_model, :_api_key, :_max_iterations, :_timeout
+        attr_accessor :_provider, :_model, :_api_key, :_max_iterations
 
-        %i[provider model api_key max_iterations timeout].each do |method|
+        %i[provider model api_key max_iterations].each do |method|
           define_method(method) { |value| instance_variable_set("@_#{method}", value) }
         end
       end
@@ -30,7 +30,7 @@ RSpec.describe Soka::Rails::AgentExtensions do
     end
 
     it 'applies model setting' do
-      expect(subclass._model).to eq('gpt-4')
+      expect(subclass._model).to eq('gpt-5-mini')
     end
 
     it 'applies api_key setting' do
@@ -39,10 +39,6 @@ RSpec.describe Soka::Rails::AgentExtensions do
 
     it 'applies max_iterations setting' do
       expect(subclass._max_iterations).to eq(10)
-    end
-
-    it 'applies timeout setting' do
-      expect(subclass._timeout).to eq(30)
     end
   end
 
@@ -66,7 +62,7 @@ RSpec.describe Soka::Rails::AgentExtensions do
     end
 
     it 'uses default model when not configured' do
-      expect(subclass._model).to eq('gemini-2.0-flash-exp')
+      expect(subclass._model).to eq('gemini-2.5-flash-lite')
     end
   end
 

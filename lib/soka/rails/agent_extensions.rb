@@ -31,7 +31,6 @@ module Soka
           subclass.model config.ai_model if config.ai_model
           subclass.api_key config.ai_api_key if config.ai_api_key
           subclass.max_iterations config.max_iterations if config.max_iterations
-          subclass.timeout config.timeout if config.timeout
         end
       end
     end

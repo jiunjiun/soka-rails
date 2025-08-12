@@ -15,10 +15,9 @@ RSpec.shared_context 'with rails configuration' do
   let(:configuration) do
     config = Soka::Rails::Configuration.new
     config.ai_provider = :openai
-    config.ai_model = 'gpt-4'
+    config.ai_model = 'gpt-5-mini'
     config.ai_api_key = 'test-key'
     config.max_iterations = 10
-    config.timeout = 30
     config
   end
 

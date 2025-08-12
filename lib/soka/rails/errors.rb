@@ -42,13 +42,6 @@ module Soka
       end
     end
 
-    # Raised when agent execution exceeds the configured timeout
-    class AgentTimeoutError < AgentError
-      def initialize(timeout)
-        super("Agent execution timeout after #{timeout} seconds")
-      end
-    end
-
     # Raised when agent exceeds maximum allowed iterations
     class MaxIterationsExceededError < AgentError
       def initialize(max_iterations)
