@@ -20,7 +20,7 @@ RSpec.describe Soka::Rails do
         described_class.configure do |config|
           config.ai do |ai|
             ai.provider = :openai
-            ai.model = 'gpt-4'
+            ai.model = 'gpt-5-mini'
             ai.api_key = 'test-key'
           end
         end
@@ -31,7 +31,7 @@ RSpec.describe Soka::Rails do
       end
 
       it 'persists model configuration' do
-        expect(described_class.configuration.ai_model).to eq('gpt-4')
+        expect(described_class.configuration.ai_model).to eq('gpt-5-mini')
       end
 
       it 'persists api_key configuration' do
@@ -46,7 +46,7 @@ RSpec.describe Soka::Rails do
         end
 
         described_class.configure do |config|
-          config.ai { |ai| ai.model = 'gpt-4' }
+          config.ai { |ai| ai.model = 'gpt-5-mini' }
         end
       end
 
@@ -55,7 +55,7 @@ RSpec.describe Soka::Rails do
       end
 
       it 'preserves model from second call' do
-        expect(described_class.configuration.ai_model).to eq('gpt-4')
+        expect(described_class.configuration.ai_model).to eq('gpt-5-mini')
       end
     end
   end
