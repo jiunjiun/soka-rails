@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.6] - 2025-08-12
+
+### Changed
+- Removed timeout configuration from Rails integration - timeout is now managed by underlying Soka gem
+- Updated default AI model from gemini-2.0-flash-exp to gemini-2.5-flash-lite
+- Updated soka dependency to version 0.0.6
+
+### Documentation
+- Updated documentation to reflect timeout removal
+
+### Tests
+- Updated test fixtures with new model names (gpt-5-mini, claude-sonnet-4-0)
+
 ## [0.0.5] - 2025-08-05
 
 ### Added
