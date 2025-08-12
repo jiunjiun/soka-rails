@@ -33,6 +33,6 @@ Gem::Specification.new do |spec|
 
   # Runtime dependencies
   spec.add_dependency 'rails', '>= 7.0', '< 9.0'
-  spec.add_dependency 'soka', '~> 0.0.5'
+  spec.add_dependency 'soka', '~> 0.0.6'
   spec.add_dependency 'zeitwerk', '~> 2.6'
 end
