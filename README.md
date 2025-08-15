@@ -464,6 +464,18 @@ Soka::Rails.configure do |config|
 end
 ```
 
+### Model Testing Results
+
+Based on extensive testing with the Soka framework, here are the recommended models for optimal performance:
+
+| Provider | ✅ Recommended Models | ⚠️ Not Recommended | Notes |
+|----------|----------------------|-------------------|--------|
+| **Gemini** | `gemini-2.5-flash-lite` ⭐<br>`gemini-2.5-pro` | `gemini-2.5-flash` | **gemini-2.5-flash-lite**: Fast, cost-effective, with good performance<br>**Avoid gemini-2.5-flash**: Often skips thinking process when using tools, directly jumps to tool usage |
+| **OpenAI** | `gpt-5` <br>`gpt-5-mini` ⭐ | `gpt-5-nano` | **gpt-5-mini**: Good balance of price, speed, and effectiveness<br>**Avoid gpt-5-nano**: Can enter infinite tool-calling loops, fails to complete tasks |
+| **Claude** | *To be tested* | - | Testing in progress |
+
+⭐ = Best choice for most use cases
+
 ## Compatibility
 
 - Ruby: >= 3.4
